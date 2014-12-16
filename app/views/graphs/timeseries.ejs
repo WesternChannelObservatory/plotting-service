@@ -55,8 +55,6 @@
 
 				width: 250px;
 				box-sizing: border-box;
-
-				border-left: 2px solid black;
 			}
 
 			#controls{
@@ -68,8 +66,6 @@
 				width: 100%;
 				padding: 10px;
 				box-sizing: border-box;
-
-				overflow-y: scroll;
 			}
 
 			.bounds-holder {
@@ -308,7 +304,7 @@ color: white;
 		</div>
 		<div id="sidebar">
 			<div id="controls">
-				<div>
+				<div style="display:none">
 					<h2>Y-Axis</h2>
 					<div class="clearfix">
 						<h4 class="bounds-titles left">Left</h4>
@@ -339,17 +335,16 @@ color: white;
 				</div>
 
 				<div>
-					<h2>Data Series</h2>
 					<div id="series"></div>
 				</div>
-				<div>
+				<div style="display:none">
 					<label class="pointer">
 						<input type="checkbox" id="dont-join-data-gaps" />
 						Do not join gaps
 					</label>
 				</div>
 
-				<div>
+				<div style="display:none">
 					<button onclick="graphController.downloadPopup();" class="trigger-download-button">Save & Download</button>
 				</div>
 			</div>
