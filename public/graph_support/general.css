@@ -34,7 +34,7 @@ body{
    width: 250px;
    box-sizing: border-box;
 
-   border-left: 2px solid black;
+   /*border-left: 2px solid black;*/
 }
 
 #controls{
@@ -47,7 +47,7 @@ body{
    padding: 10px;
    box-sizing: border-box;
 
-   overflow-y: scroll;
+   overflow-y: visible;
 }
 
 .bounds-holder {
@@ -97,6 +97,7 @@ body{
 
 .pointer{
    cursor: pointer;
+   display: none;
 }
 
 #series label{
