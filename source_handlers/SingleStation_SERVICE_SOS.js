@@ -184,16 +184,37 @@ SOS_Service.prototype.seriesFormatters['timeseries'] = Timeseries = function(){
 		// At this stage _this._data is a string with values separated by _this._blockSeparator (defined 
 		// in the SOS response, default is a single space). So we need to split the values using the blockSeparator
 		var values = this._data.split( this._blockSeparator );
+		var previousX = new Date(8640000000000000);
 
 		for (var value = 0; value < values.length; value++) {
 			// split each value using the tokenSeparator (defined in the SOS response, default is a comma)
 			var v = values[value].split( this._tokenSeparator );
+			var currentX = v[0];
+			var currentX_ms = new Date(currentX).getTime();
+			var currentY = parseFloat(v[parseInt(i)+1])	// the sub-series index plus one to take into account the date always being at position 0 in the block
+			var nullPoint = [];
+
+			if ( (Math.round(currentX_ms/1000.0)) - (Math.round(new Date(previousX).getTime()/1000.0)) > 600) {	// 600 * 1000ms = 10 minutes
+				var tplus = new Date(currentX_ms - 600000);
+				nullPoint = {
+					x : tplus.toISOString(),
+					y : null
+				}
+			}
+			
 			var point = {
-				x : v[0],
-				y : parseFloat(v[parseInt(i)+1])	// the sub-series index plus one to take into account the date always being at position 0 in the block
+				x : currentX,
+				y : currentY
 			}
 
+			// first put the null point in
+			if (nullPoint.length !== 0) {
+				newSeries.values.push( nullPoint );
+			}
+			// then the valid point after the break
 			newSeries.values.push( point );
+			
+			var previousX = currentX; 	// set the previousX value for the next time around the loop
 		}
 
 		newSeries.values.sort(function( pointA, pointB ){

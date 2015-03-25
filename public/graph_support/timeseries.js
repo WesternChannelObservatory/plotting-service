@@ -333,7 +333,8 @@ var timeseriesController = $.extend( graphController, {
     // If the option is set, dont join the gaps 
     // if theres gappy data
     if( Settings.get('join-data-gaps') != "true" )
-      seriesToShow = this.splitAllSeriesOnGap( seriesToShow );
+      //  This is done in the source_handler server side rather than on the client as it can be quite heavy on the CPU
+      //seriesToShow = this.splitAllSeriesOnGap( seriesToShow );
 
     this.chart.showErrorBars( Settings.get('show-std-area') == "true" );
 
